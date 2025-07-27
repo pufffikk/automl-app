@@ -1,0 +1,16 @@
+streamlit
+pandas
+scikit-learn
+xgboost
+lightgbm
+catboost
+transformers
+datasets
+shap
+matplotlib
+openpyxl
+joblib
+torch
+dask[complete]
+pytest
+accelerate>=0.26.0
