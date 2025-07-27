@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import tempfile
 import dask.dataframe as dd
-from sklearn.metrics import ConfusionMatrixDisplay
+
 
 from ml.ml_functions import detect_task_type
 from ml.tabular_models import train_tabular_models
@@ -61,11 +61,6 @@ if uploaded_file:
         st.write("Evaluation Results:")
         st.dataframe(results)
 
-        disp = ConfusionMatrixDisplay(confusion_matrix=best_cm)
-        fig, ax = plt.subplots(figsize=(4, 3))
-        disp.plot(ax=ax, cmap=plt.cm.Blues)
-        st.pyplot(fig)
-
         acc = results.loc[results['Model'] == best_model_name, 'Accuracy'].values[0]
         roc = results.loc[results['Model'] == best_model_name, 'ROC AUC'].values[0]
 
@@ -80,7 +75,7 @@ if uploaded_file:
         st.subheader("Run History (this session)")
         st.table(st.session_state.history)
 
-        explanation = explain_best_model(best_model_name, best_model, df_pd, target_column)
+        explanation = explain_best_model(best_model_name, best_model, df_pd, target_column, best_cm)
         st.write("Explanation:", explanation)
 
         pkl_bytes = save_model_as_pickle(best_model)
